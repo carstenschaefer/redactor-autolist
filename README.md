@@ -1,8 +1,7 @@
 # redactor-autolist
-Generates an unordered list on use of '*' or '-'.
-Generates an ordered list on use of '1.'.
+Generates an unordered list on use of '*' or '-' and generates an ordered list on use of '1.'.
 
-Is the automatic generated list not wanted: pressing the short CTRL+Z will remove the auto generated list and brings back the typed in char.
+Is the automatic generated list not wanted pressing the shortcut CTRL+Z will remove the auto generated list and brings back the typed in character.
 
 A plugin developed for [Redactor](http://imperavi.com/redactor/), a WYSIWYG rich-text editor made by [imperavi](http://imperavi.com/).
 
@@ -30,7 +29,7 @@ Configuration via HTML markup:
                             tabKey: true,
                             plugins: ['autolist'],
                             toolbarExternal: '#page-editor-toolbar',
-						  }"></textarea>
+			  }"></textarea>
  ````
  
 
