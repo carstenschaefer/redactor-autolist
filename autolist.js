@@ -1,5 +1,5 @@
 if (!RedactorPlugins) var RedactorPlugins = {};
-//&#8203: Unicode Character 'ZERO WIDTH SPACE' (U+200B)   -> redactor editor inserts this at the first line
+
 (function ($) {
   RedactorPlugins.autolist = function () {
     var flag = false;
@@ -15,7 +15,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 			  
         this.$editor.on('keyup.redactor-limiter', $.proxy(function (e) {
           var key = e.which;
-		  
+		
 		  //check of autolist placeholder only when in 'standard' mode (not after a ctrl+z)
           if (key == this.keyCode.SPACE && flag === false) {
             var current = this.selection.getCurrent();
@@ -28,8 +28,9 @@ if (!RedactorPlugins) var RedactorPlugins = {};
             var listType = '';
             var replaced = false;
 
+			  //&#8203: Unicode Character 'ZERO WIDTH SPACE' (U+200B)   -> redactor editor inserts this at the first line
             //check for unordered list placeholder
-            var regUnordered = new RegExp(/^[\*-]/);
+            var regUnordered = new RegExp(/(?:^\u200b[\*-]|^[\*-])/);
             if (text.search(regUnordered) != -1) {
               listType = 'unorderedlist'
               replaced = true;
@@ -37,7 +38,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
             }
 
             //check for ordered list placeholder
-            var regOrdered = new RegExp(/^1\./);
+            var regOrdered = new RegExp(/(?:^\u200b1\.|^1\.)/);
             if (text.search(regOrdered) != -1) {
               listType = 'orderedlist'
               replaced = true;
@@ -46,7 +47,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 
 			//removes autolist placeholder and inserts list
             if (replaced) {
-              text = text.replace(/(^[\*-]&nbsp;)|(^1\.&nbsp;)/, '');
+              text = text.replace(/(?:^\u200b[\*-]|^[\*-])|(?:^\u200b1\.|^1\.)/, '');
               $div = $('<div>');
               $div.html(text);
               $div.append(this.selection.getMarker());
